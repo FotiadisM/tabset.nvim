@@ -65,7 +65,7 @@ require("tabset").setup({
         go = {
             tabwidth = 4,
             expandtab = false
-        }
+        },
         {
             filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact", "json", "yaml" },
             config = {
