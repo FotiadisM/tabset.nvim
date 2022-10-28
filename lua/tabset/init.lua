@@ -1,16 +1,15 @@
-local config = require("tabset.config")
+local M = {}
 
-local tabset = {}
-
-function tabset.setup(user_config)
+M.setup = function(user_config)
 	user_config = user_config or {}
-	config.set_config(user_config)
+	require("tabset.config").set_config(user_config)
 end
 
-vim.cmd([[
-	augroup tabset
-		autocmd FileType * lua require('tabset.logic').set_settings()
-	augroup END
-]])
+vim.api.nvim_create_autocmd("FileType", {
+	group = vim.api.nvim_create_augroup("tabset", { clear = true }),
+	callback = function()
+		require("tabset.logic").set_settings()
+	end,
+})
 
-return tabset
+return M

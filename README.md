@@ -17,7 +17,7 @@
 
 ## Why
 
-Mostly for fun, since it's my first plugin. However, I have seen most people creating files under the `ftplugin` folder to control the behaviour of tab. I wanted to avoid creating a file for every file type so I made this plugin. Do we really need a plugin for something like this? I don't know, maybe note, but I made it anyway.
+Mostly for fun, since it's my first plugin. However, I have seen most people creating files under the `ftplugin` folder to control the behaviour of tab. I wanted to avoid creating a file for every file type so I made this plugin. Do we really need a plugin for something like this? I don't know, maybe not, but I made it anyway.
 
 ## Installation
 

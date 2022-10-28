@@ -1,22 +1,22 @@
-local config = {}
-
-config.config = {}
+local M = {
+	config = {},
+}
 
 local config_defaults = {
 	tabwidth = 4,
-	expandtab = true
+	expandtab = true,
 }
 
 local config_languages = {
 	go = {
 		tabwidth = 4,
-		expandtab = false
-	}
+		expandtab = false,
+	},
 }
 
 local function set_defaults()
-	config.config.defaults = config_defaults
-	config.config.languages = config_languages
+	M.config.defaults = config_defaults
+	M.config.languages = config_languages
 end
 
 local function first_non_null(...)
@@ -29,56 +29,56 @@ local function first_non_null(...)
 	end
 end
 
-function config.set_config(user_config)
+M.set_config = function(user_config)
 	local user_defaults = user_config.defaults or {}
 	local user_languages = user_config.languages or {}
 
 	for k, v in pairs(config_defaults) do
-		config.config.defaults[k] = first_non_null(user_defaults[k], v)
+		M.config.defaults[k] = first_non_null(user_defaults[k], v)
 	end
 
 	for k, v in pairs(user_languages) do
-		config.config.languages[k] = v
+		M.config.languages[k] = v
 
 		if type(k) == "string" then
-			if config.config.languages[k].tabwidth == nil then
-				config.config.languages[k].tabwidth = config_defaults.tabwidth
+			if M.config.languages[k].tabwidth == nil then
+				M.config.languages[k].tabwidth = config_defaults.tabwidth
 			end
 
-			if config.config.languages[k].expandtab == nil then
-				config.config.languages[k].expandtab = config_defaults.expandtab
+			if M.config.languages[k].expandtab == nil then
+				M.config.languages[k].expandtab = config_defaults.expandtab
 			end
 		else
-			if config.config.languages[k].filetypes == nil then
-				config.config.languages[k] = nil
-                        else
-			if config.config.languages[k].config == nil then
-				config.config.languages[k].config = config_defaults
+			if M.config.languages[k].filetypes == nil then
+				M.config.languages[k] = nil
 			else
-				if config.config.languages[k].config.tabwidth == nil then
-					config.config.languages[k].config.tabwidth = config_defaults.tabwidth
+				if M.config.languages[k].config == nil then
+					M.config.languages[k].config = config_defaults
+				else
+					if M.config.languages[k].config.tabwidth == nil then
+						M.config.languages[k].config.tabwidth = config_defaults.tabwidth
+					end
+					if M.config.languages[k].config.expandtab == nil then
+						M.config.languages[k].config.expandtab = config_defaults.expandtab
+					end
 				end
-				if config.config.languages[k].config.expandtab == nil then
-					config.config.languages[k].config.expandtab = config_defaults.expandtab
-				end
-			end
 			end
 		end
 	end
 end
 
-function config.get_config()
-	return config.config
+M.get_config = function()
+	return M.config
 end
 
-function config.get_defaults()
-	return config.config.defaults
+M.get_defaults = function()
+	return M.config.defaults
 end
 
-function config.get_languages_config()
+M.get_languages_config = function()
 	local lngs = {}
 
-	for l, c in pairs(config.config.languages) do
+	for l, c in pairs(M.config.languages) do
 		if type(l) == "string" then
 			lngs[l] = c
 		else
@@ -93,4 +93,4 @@ end
 
 set_defaults()
 
-return config
+return M

@@ -1,9 +1,9 @@
 local languages = require("tabset.config").get_languages_config()
 local defaults = require("tabset.config").get_defaults()
 
-local logic = {}
+local M = {}
 
-function logic.set_settings()
+M.set_settings = function()
 	local tabwidth = defaults.tabwidth
 	local expandtab = defaults.expandtab
 
@@ -17,4 +17,4 @@ function logic.set_settings()
 	vim.o.expandtab = expandtab
 end
 
-return logic
+return M
